@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function Influencer() {
-  return (
-    <div>Influencer</div>
-  )
+  return <div>Influencer</div>;
 }
 
-export default Influencer
+export default Influencer;
