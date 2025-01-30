@@ -75,22 +75,22 @@ function Login() {
   return (
   <div className="flex h-[100vh]">
     <div className="flex w-full">
-      <div className="relative z-0 h-full px-40  w-full bg-blue-400">
-      <Image src="/loginBg1.png" width={500} height={300} alt="" className='h-full w-full object-fit '/>
-      <div className="absolute  z-1 flex h-[100%] w-full inset-0 flex-col rounded-md bg-black opacity-60 py-1"></div>
-      <div className="absolute left-[20%] top-[10%] z-10 flex h-[80%]  items-center justify-center  flex-col rounded-md  py-1">
+      <div className="relative z-0 h-full px-1 md:px-40  w-full bg-blue-400">
+      <Image src="/loginBg1.png" width={500} height={300} alt="" className='h-full w-full object-cover md:object-fit '/>
+      <div className="absolute  z-1 flex h-full w-full inset-0 flex-col md:rounded-md bg-black opacity-60 py-1"></div>
+      <div className="absolute left-[20%] top-[10%] z-10  hidden md:flex h-[10%] md:h-[80%]  items-center justify-center  flex-col rounded-md  py-1">
         <h2 className="text-slate-400 uppercase font-bold text-3xl">
           Practical Interview
         </h2>
         <span className="text-slate-100">Just Do it ...</span>
       </div>
-      <div className="absolute right-[20%] top-[10%] z-10 flex h-[80%] w-1/4 flex-col rounded-md bg-black opacity-50 py-1"></div>
-      <div className="absolute right-[20%] top-[10%] z-10 flex h-[80%] w-1/4 flex-col rounded-md   py-1">
+      <div className="absolute right-0 md:right-[20%] top-0 md:top-[10%] z-10 flex h-full md:h-[80%]  w-full md:w-1/4 flex-col md:rounded-md bg-black opacity-50 py-1"></div>
+      <div className="absolute right-0 md:right-[20%] top-0 md:top-[10%] z-10 flex h-full md:h-[80%]  w-full md:w-1/4 flex-col md:rounded-md   py-1">
         <div className="mb-2 flex h-1/4 w-full items-center justify-center">
           <div className="flex size-32 rounded-full bg-blue-400"></div>
         </div>
         <p className="text-center text-2xl font-bold text-white">{isloginIn?"Login":"Register"}</p>
-        <div className="flex flex-col gap-y-2 px-10 py-5">
+        <div className="flex flex-col gap-y-2 px-5 md:px-10 py-5">
           {!isloginIn && (
             <div className="flex h-8 w-full items-center justify-between px-1">
               <RoleButton title="campaigner" />
