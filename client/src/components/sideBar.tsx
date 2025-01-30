@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { SetStateAction, useEffect, useState } from "react";
 import { FiHome, FiInfo, FiSettings, FiPower, FiPhone, FiMenu, FiChevronLeft } from "react-icons/fi";
@@ -22,7 +23,7 @@ const Sidebar = ({ children }: any) => {
     };
     const fetchUser = async () => {
         try {
-            let response = await instance.get('user')
+            const response = await instance.get('user')
             if (response?.data?.user) {
                 setUser(response.data.user)
             }

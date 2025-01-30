@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 
-const SocialButton = ({ color, icon, AddsocialMedia }: String | Number | any) => {
+const SocialButton = ({ color, icon, AddsocialMedia }: string | number | any) => {
     return (
         <button
             onClick={AddsocialMedia}

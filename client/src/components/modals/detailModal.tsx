@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { useState } from "react"
@@ -15,7 +17,7 @@ interface CreateModalProps {
     error?: any
     submit?: any
     item?: any
-    title?: String
+    title?: string
     body: any
     role?: any
     fetchData: any
@@ -94,7 +96,7 @@ const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, role, erro
     console.log(submissionitem)
     const LaunchCampaign = async (text: any) => {
         try {
-            let response = await instance.put(`campaign/${item._id}`, { state: text })
+            await instance.put(`campaign/${item._id}`, { state: text })
             await fetchData()
             toast.success("Campaign Successfully Launched")
             cancel()
@@ -125,7 +127,7 @@ const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, role, erro
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     const approve = async (word: any, id: any) => {
         try {
-            let response = await instance.put(`submissions/${id}`, { approved: word })
+            const response = await instance.put(`submissions/${id}`, { approved: word })
             await fetchData()
 
         } catch (error: any) {

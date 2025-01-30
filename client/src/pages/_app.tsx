@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { AppProps } from 'next/app'
 import '../app/globals.css'
 import toast, { Toaster } from 'react-hot-toast';

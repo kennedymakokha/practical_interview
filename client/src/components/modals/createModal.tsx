@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface CreateModalProps {
     setPopUp?: any
     cancel?: any
     error?: any
     submit?: any
     item?: any
-    title?: String
+    title?: string
     body: any
 }
 const Create_Modal: React.FC<CreateModalProps> = ({ setPopUp, cancel, error, submit, item, title, body }) => {

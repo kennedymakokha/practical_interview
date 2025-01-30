@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-"use client";
 import Input, { TextArea } from "@/components/Input";
 import Create_Modal from "@/components/modals/createModal";
 import DetailModal from "@/components/modals/detailModal";
@@ -14,7 +15,7 @@ import toast from "react-hot-toast";
 export default function Home() {
   const [popUp, setPopUp] = useState(false)
   const [show, setShow] = useState(false)
-  const [selected, setSelected] = useState(null)
+ 
   const [campaigns, setCampaigns] = useState([])
   const initialState = {
     name: "",
@@ -29,7 +30,7 @@ export default function Home() {
   const [user, setUser] = useState<any>(null)
   const fetchUser = async () => {
     try {
-      let response = await instance.get('user')
+      const response = await instance.get('user')
       if (response?.data?.user) {
         setUser(response.data.user)
       }
@@ -41,7 +42,7 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      let response = await instance.get('campaign')
+      const response = await instance.get('campaign')
       if (response?.data?.campaign) {
         setCampaigns(response.data.campaign)
       }
@@ -69,7 +70,7 @@ export default function Home() {
     setPopUp(true)
   }
   const openDetailModal = (data: any) => {
-    setSelected(data._id)
+   
     setShow(true)
     setItem(data)
   }
@@ -79,7 +80,7 @@ export default function Home() {
   }
   const submit = async () => {
     try {
-      let response = await instance.post("campaign", item)
+      const response = await instance.post("campaign", item)
       await fetchData()
       setPopUp(false)
       setItem(initialState)

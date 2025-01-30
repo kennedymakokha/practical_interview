@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import Input from '@/components/Input'
 import React, { useState } from 'react'
@@ -6,7 +7,6 @@ import axios from '@/utils/instance'
 import toast from 'react-hot-toast'
 import { setCookie } from 'cookies-next'
 import { jwtDecode } from 'jwt-decode'
-import { useRouter } from 'next/router'
 
 function Login() {
     const initialState = {
@@ -16,12 +16,8 @@ function Login() {
         confirm_password: "",
         role: "influencer"
     }
-    const router = useRouter()
-    const [checked, setChecked] = React.useState(false);
+   
 
-    const handleChangeInput = () => {
-        setChecked(!checked);
-    };
     const [item, setItem] = useState(initialState)
     const [isloginIn, setIsLoginin] = useState(true)
     const handleChange = (e: any, name: any) => {
@@ -43,12 +39,12 @@ function Login() {
     const handleSubmit = async (e: any) => {
         try {
             e.preventDefault();
-            let results = await axios.post(`${isloginIn ? "user/login" : "user/"}`, item)
+            const results = await axios.post(`${isloginIn ? "user/login" : "user/"}`, item)
             if (results?.data.token) {
                 const decoded:any = jwtDecode(results?.data.token)
                 toast.success(results?.data.message)
                 localStorage.setItem('uid', decoded?.uid)
-                let expiry = new Date(parseInt(decoded?.exp?.toString() || '0') * 1000)
+                const expiry = new Date(parseInt(decoded?.exp?.toString() || '0') * 1000)
                 setCookie('tkn', results?.data.token, { expires: expiry })
                 return window.location.href = "/"
 

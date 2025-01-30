@@ -1,16 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import React, { useState } from "react";
 interface InputProps {
-    disable?: Boolean;
-    min?: Number | String | undefined
-    name?: String
+    disable?: boolean;
+    min?: number | string | undefined
+    name?: string
 
-    placeholder?: String
+    placeholder?: string
     value?: any
     onChange: any
-    label?: String;
-    required?: Boolean,
-    type?: String;
+    label?: string;
+    required?: boolean,
+    type?: string;
 
 
 }
@@ -82,7 +84,7 @@ const Input: React.FC<InputProps> = ({ label, min, placeholder, required, value,
 }
 
 export const TextArea: React.FC<InputProps> = ({ label, min, placeholder, required, value, disable, name, type, onChange }) => {
-    const [show, setShow] = useState(false);
+   
     return (
         <div className="flex w-full px-2  gap-x-2 rounded-md border md:border-slate-200 border-purple-800">
             <div className="flex capitalize md:text-slate-500 text-slate-50  font-bold ">
@@ -92,10 +94,8 @@ export const TextArea: React.FC<InputProps> = ({ label, min, placeholder, requir
                 )}
             </div>
             <textarea
-                max={min}
                 name={name}
                 disabled={disable}
-                type= "text"
                 rows={10}
                 value={value}
                 placeholder={placeholder}

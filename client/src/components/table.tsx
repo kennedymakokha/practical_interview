@@ -1,35 +1,35 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import { Paginator } from './Paginator';
 import Input from './Input';
-import instance from '@/utils/instance';
 
 
 
 interface TableProps {
-  noAction?: Boolean;
-  paginate?: Number,
+  noAction?: boolean;
+  paginate?: number,
   addFunction?: any
-  page?: Number
-  role?: String
+  page?: number
+  role?: string
   closeDetailModal?: any
   openDetailModal?: any
-  state?: String
+  state?: string
   filter?: any
   action?: any
   setFilter?: any
-  otherAction?: String;
-  isLoading?: Boolean,
-  key_column?: String;
-  title?: String;
+  otherAction?: string;
+  isLoading?: boolean,
+  key_column?: string;
+  title?: string;
   data?: Array<any>;
-  columns?: { Header?: String | any, accessor?: String | any }[]
+  columns?: { Header?: string | any, accessor?: string | any }[]
 
   Repeat?: any; // Function to handle button click
 
   disabled?: boolean; // Optional prop to disable the button
 }
 
-const Table: React.FC<TableProps> = ({ noAction, action, state, role, otherAction, openDetailModal, closeDetailModal, addFunction, filter, setFilter, paginate, page, isLoading, Repeat, columns, data, disabled = false }) => {
+const Table: React.FC<TableProps> = ({ noAction, action, state, role, openDetailModal, addFunction, setFilter, columns, data }) => {
 
 
   return (
