@@ -1,4 +1,5 @@
-﻿# practical_interview
+﻿# practical_interview 
+ Hosted on vercel https://practical-interview-frontend.vercel.app/
 
  This project consists of two main parts:
 
