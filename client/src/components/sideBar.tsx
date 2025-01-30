@@ -58,7 +58,7 @@ const Sidebar = ({ children }: any) => {
       
       <div className={`absolute inset-0 ${isExpanded ? 'md:left-[10%] ' : ' left-[0%] md:left-[4%]'} -z-1`}>
         <div className="mb-2 flex md:h-14 bg-white"></div>
-        <div className="flex  w-full p-2 rounded-md md:hidden flex item-center justify-center ">
+        <div className="flex  w-full p-2 rounded-md md:hidden flex item-center justify-start ">
         <div className={`overflow-hidden   transition-all duration-300  w-32'}`}>
                   <p className="font-medium capitalize">{user?.name}</p>
                   <p className="text-sm lowercase text-center text-gray-400">{user?.role}</p>

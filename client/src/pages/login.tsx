@@ -90,7 +90,7 @@ function Login() {
           <div className="flex size-32 rounded-full bg-blue-400"></div>
         </div>
         <p className="text-center text-2xl font-bold text-white">{isloginIn?"Login":"Register"}</p>
-        <div className="flex flex-col gap-y-2 px-5 md:px-10 py-5">
+        <div className="flex flex-col gap-y-2 px-10 py-5">
           {!isloginIn && (
             <div className="flex h-8 w-full items-center justify-between px-1">
               <RoleButton title="campaigner" />
