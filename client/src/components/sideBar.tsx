@@ -15,7 +15,7 @@ import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import instance from '@/utils/instance';
 const Sidebar = ({ children }: any) => {
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [activeLink, setActiveLink] = useState('home');
   const router = useRouter();
   const menuItems = [
@@ -55,7 +55,7 @@ const Sidebar = ({ children }: any) => {
 
   return (
     <div className="relative h-64">
-      <div className={`absolute inset-0 ${isExpanded ? 'left-[15%]' : 'left-[4%]'} -z-1`}>
+      <div className={`absolute inset-0 ${isExpanded ? 'left-[10%]' : 'left-[4%]'} -z-1`}>
         <div className="mb-2 flex h-14 bg-white"></div>
         <main>
           <div className="flex w-full flex-col gap-y-12 px-3">{children}</div>{' '}
@@ -73,7 +73,7 @@ const Sidebar = ({ children }: any) => {
                     </p>
                 </div> */}
         <div
-          className={`h-screen bg-gray-800 text-white transition-all duration-300 ease-in-out ${isExpanded ? 'w-16 md:w-64' : 'w-16'} relative`}
+          className={`h-screen bg-gray-800 text-white transition-all duration-300 ease-in-out ${isExpanded ? 'w-16 md:w-44' : 'w-16'} relative`}
         >
           <button
             onClick={handleToggle}
