@@ -88,7 +88,7 @@ const Sidebar = ({ children }: any) => {
               <span
                 className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'w-0 md:w-32' : 'w-0'}`}
               >
-                <h1 className="text-xl font-bold">Dashboard</h1>
+                <h1 className="text-xl font-bold text-blue-400">Dashboard</h1>
               </span>
             </div>
 
@@ -105,16 +105,16 @@ const Sidebar = ({ children }: any) => {
                         handleLinkClick(item.id);
                       }
                     }}
-                    className={`flex w-full items-center rounded-lg p-2 transition-colors duration-200 ${
+                    className={`flex w-full items-center gap-x-2 rounded-lg p-2 transition-colors duration-200 ${
                       activeLink === item.id
-                        ? 'bg-gray-700 text-white'
+                        ? 'bg-blue-300 text-black'
                         : 'text-gray-400 hover:bg-gray-700 hover:text-white'
                     } focus:outline-none focus:ring-2 focus:ring-gray-600`}
                     aria-label={item.text}
                   >
                     <Icon className="h-5 w-5" />
                     <span
-                      className={`ml-3 overflow-hidden transition-all duration-300 ${isExpanded ? 'w-32' : 'w-0'}`}
+                      className={` overflow-hidden transition-all duration-300 ${isExpanded ? 'w-32 flex' : 'w-0 hidden'}`}
                     >
                       {item.text}
                     </span>
