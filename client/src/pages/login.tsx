@@ -78,8 +78,8 @@ function Login() {
       <div className="relative z-0 h-full px-40  w-full bg-blue-400">
       <Image src="/loginBg1.png" width={500} height={300} alt="" className='h-full w-full object-fit '/>
       <div className="absolute  z-1 flex h-[100%] w-full inset-0 flex-col rounded-md bg-black opacity-60 py-1"></div>
-      <div className="absolute left-[20%] top-[10%] z-10 flex h-[20%]  items-center justify-center  flex-col rounded-md  py-1">
-        <h2 className="text-blue-400 uppercase font-bold text-3xl">
+      <div className="absolute left-[20%] top-[10%] z-10 flex h-[80%]  items-center justify-center  flex-col rounded-md  py-1">
+        <h2 className="text-slate-400 uppercase font-bold text-3xl">
           Practical Interview
         </h2>
         <span className="text-slate-100">Just Do it ...</span>
