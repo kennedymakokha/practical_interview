@@ -17,7 +17,7 @@ class campaignController {
             const user: any = await User.findById(req.uid)
           
             if (!user || user.role !== "campaigner") {
-                return res.status(403).json({ message: "Not Authorized to create a campaign" })
+                res.status(403).json({ message: "Not Authorized to create a campaign" })
             }
             //validating the request
             const { error, value } = campaignSchemaValidate.validate(req.body)
@@ -44,7 +44,7 @@ class campaignController {
            
             const user: any = await User.findById(req.uid)
             if (!user) {
-                return res.status(403).json({ message: "Not Authorized " })
+                res.status(403).json({ message: "Not Authorized " })
             }
             // if (user.role === "campaigner") {
             //     options.createdBy = req.uid

@@ -16,7 +16,7 @@ class submissioncontroller {
 
             const user: any = await User.findById(req.uid)
             if (!user || user.role !== "influencer") {
-                return res.status(403).json({ message: "Not Authorized to create a campaign submission" })
+                res.status(403).json({ message: "Not Authorized to create a campaign submission" })
             }
 
             //validating the request
@@ -29,19 +29,17 @@ class submissioncontroller {
             } else {
                 const campaign: any = Campaign.findById(req.body.campaignID)
                 if (!campaign) {
-                    return res.status(403).json({ message: "Campaign does Not Exist" })
+                    res.status(403).json({ message: "Campaign does Not Exist" })
                 }
 
                 const newsubmission = await Submission.create({ ...value, createdBy: req.uid })
-                // const submission = await Campaign.findByIdAndUpdate(req.body.campaignID, { state: "pending-approval" })
                 res.status(200).json({ message: 'Success', newsubmission })
             }
         } catch (error) {
             res.status(400).json({ message: error })
 
         }
-        //data to be saved in database
-
+       
 
     }
 

@@ -40,21 +40,20 @@ class userController {
     loginuser = async (req: Request, res: Response) => {
 
         try {
-            const user = await User.findOne({
+            const user:any = await User.findOne({
                 email: req.body.email,
                 // deleted_at: null,
             });
 
             if (!user) {
-                return res
+                 res
                     .status(400)
                     .json({ success: false, message: "User Does Not Exist !" });
             }
             const isEqual = await bcrypt.compare(req.body.password, user.password);
 
             if (!isEqual) {
-                return res
-                    .status(400)
+                 res.status(400)
                     .json({ success: false, message: "Password is Incorrect !" });
             }
             const iat = Math.floor(Date.now() / 1000);
@@ -69,10 +68,10 @@ class userController {
                 },
                 "secret"
             );
-            return res.status(200).json({ message: 'Success', user, token })
+             res.status(200).json({ message: 'Success', user, token })
 
         } catch (error) {
-            return res.status(400).json({ message: error })
+             res.status(400).json({ message: error })
         }
 
 

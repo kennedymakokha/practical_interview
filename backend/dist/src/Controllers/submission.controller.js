@@ -20,7 +20,7 @@ class submissioncontroller {
             try {
                 const user = yield user_1.User.findById(req.uid);
                 if (!user || user.role !== "influencer") {
-                    return res.status(403).json({ message: "Not Authorized to create a campaign submission" });
+                    res.status(403).json({ message: "Not Authorized to create a campaign submission" });
                 }
                 //validating the request
                 const { error, value } = submission_1.submissionSchemaValidate.validate(req.body);
@@ -30,17 +30,15 @@ class submissioncontroller {
                 else {
                     const campaign = campaign_1.Campaign.findById(req.body.campaignID);
                     if (!campaign) {
-                        return res.status(403).json({ message: "Campaign does Not Exist" });
+                        res.status(403).json({ message: "Campaign does Not Exist" });
                     }
                     const newsubmission = yield submission_1.Submission.create(Object.assign(Object.assign({}, value), { createdBy: req.uid }));
-                    // const submission = await Campaign.findByIdAndUpdate(req.body.campaignID, { state: "pending-approval" })
                     res.status(200).json({ message: 'Success', newsubmission });
                 }
             }
             catch (error) {
                 res.status(400).json({ message: error });
             }
-            //data to be saved in database
         });
         this.getsubmissions = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {

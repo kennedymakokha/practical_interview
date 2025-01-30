@@ -14,12 +14,12 @@ const protect = expressAsyncHandler(async (req: any, res: any, next) => {
 
             next()
         } catch (error) {
-            return res.status(401)
+            res.status(401)
             throw new Error("Unauthorized access- INVALID TOKEN")
 
         }
     } else {
-        return res.status(401);
+        res.status(401);
         throw new Error("Unauthorized access- NO TOKEN")
     }
 })
@@ -34,7 +34,7 @@ const isAuth = (req: any, res: any, next: any) => {
             'secret',
             (err: any, decode: any) => {
                 if (err) {
-                    return res.status(401).send({ message: 'NOT AUTHORIZED !!!' });
+                    res.status(401).send({ message: 'NOT AUTHORIZED !!!' });
                 } else {
                     req.uid = decode.uid;
                     next();
@@ -42,7 +42,7 @@ const isAuth = (req: any, res: any, next: any) => {
             }
         );
     } else {
-        return res.status(401).send({ message: 'NOT AUTHORIZED !!!' });
+        res.status(401).send({ message: 'NOT AUTHORIZED !!!' });
     }
 };
 

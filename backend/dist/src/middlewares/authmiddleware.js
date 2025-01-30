@@ -27,12 +27,12 @@ const protect = (0, express_async_handler_1.default)((req, res, next) => __await
             next();
         }
         catch (error) {
-            return res.status(401);
+            res.status(401);
             throw new Error("Unauthorized access- INVALID TOKEN");
         }
     }
     else {
-        return res.status(401);
+        res.status(401);
         throw new Error("Unauthorized access- NO TOKEN");
     }
 }));
@@ -43,7 +43,7 @@ const isAuth = (req, res, next) => {
         const token = authorization.split(" ")[1];
         jsonwebtoken_1.default.verify(token, 'secret', (err, decode) => {
             if (err) {
-                return res.status(401).send({ message: 'NOT AUTHORIZED !!!' });
+                res.status(401).send({ message: 'NOT AUTHORIZED !!!' });
             }
             else {
                 req.uid = decode.uid;
@@ -52,7 +52,7 @@ const isAuth = (req, res, next) => {
         });
     }
     else {
-        return res.status(401).send({ message: 'NOT AUTHORIZED !!!' });
+        res.status(401).send({ message: 'NOT AUTHORIZED !!!' });
     }
 };
 exports.isAuth = isAuth;
