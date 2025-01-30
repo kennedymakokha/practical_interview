@@ -132,7 +132,7 @@ export default function Home() {
           closeDetailModal={closeDetailModal}
           state="completed"
           key_column="name" columns={columns}
-          title="" data={data.filter((x: any) => x.state === "Completed")}
+          title="" data={data.filter((x: any) => x.state === "completed")}
 
         />
       </Sidebar>

@@ -22,34 +22,79 @@ interface CreateModalProps {
 }
 
 const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, role, error, submit, item, title, body }) => {
+    const initiallinks = [
+        {
+            media: "facebook", link: ""
+        },
+        {
+            media: "x", link: ""
+        },
+        {
+            media: "instagram", link: ""
+        },
+        {
+            media: "youtube", link: ""
+        }
+    ]
     const initialState = {
         campaignID: item._id,
 
         description: "",
-        links: [{
-            media: "Youtube", link: "ghggh"
-        }]
+        links: initiallinks
 
     }
-    const [list, setList] = useState<any>([])
+    const [links, setLinks] = useState<any>(initiallinks)
 
-    const AddsocialMedia = (data: any) => {
-        setList( // Replace the state
-            [ // with a new array
-                ...list, // that contains all the old items
-                data  // and one new item at the end
-            ]
-        );
-    }
+
     const [submissionitem, setItem] = useState(initialState)
     const handleChange = (e: any, name: any) => {
         setItem(((prev) => ({
             ...prev, [name]: e
         })))
     }
-    const LaunchCampaign = async () => {
+    const handleChangeOnMediaLinks = (e: any, name: any) => {
+        setItem(((prev) => ({
+            ...prev, [name]: e
+        })))
+    }
+
+    // const updateItem = (e: any, name: any, id: any) => {
+    //     console.log(name)
+    //     let Newlinks = links
+    //     let oldObje = links[name]
+    //     oldObje.link = e
+    //     console.log(oldObje)
+    //     // Newlinks
+    //     setList( // Replace the state
+    //         [ // with a new array
+    //             ...links, // that contains all the old items
+    //             // and one new item at the end
+    //         ]
+    //     );
+
+    //     updatedPersons.push({ id: 2, name: "Jane", age: 28 });
+    //     // setLinks((prevItems: any) =>
+    //     //     prevItems.map((item: any) =>
+    //     //         item.id === id
+    //     //             ? { ...item, link: e }  // Update the specific item
+    //     //             : item  // Keep the rest unchanged
+    //     //     )
+    //     // );
+    // };
+    const updateItem = (e: any, newLink: any) => {
+        setItem((prevCampaign) => ({
+            ...prevCampaign,
+            links: prevCampaign.links.map((link) =>
+                link.media === newLink
+                    ? { ...link, link: e }  // Update the link for youtube
+                    : link  // Keep the other links unchanged
+            )
+        }));
+    };
+    console.log(submissionitem)
+    const LaunchCampaign = async (text: any) => {
         try {
-            let response = await instance.put(`campaign/${item._id}`, { state: "launched" })
+            let response = await instance.put(`campaign/${item._id}`, { state: text })
             await fetchData()
             toast.success("Campaign Successfully Launched")
             cancel()
@@ -59,7 +104,7 @@ const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, role, erro
     }
     const SubmitToCampaign = async () => {
         try {
-            let response = await instance.post(`submissions`, submissionitem)
+            await instance.post(`submissions`, submissionitem)
             await fetchData()
             toast.success("Campaign Successfully Launched")
             cancel()
@@ -102,15 +147,14 @@ const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, role, erro
                         <div onClick={cancel} className="flex size-10 border items-center justify-center rounded-full ">
                             <h1 className='font-bold text-center text-lg my-2 uppercase text-[#650cae]'>X</h1>
                         </div>
-
                     </div>
                 </div>
 
 
                 <div className="flex w-full h-[90%] ">
-                    <div className={`flex ${item.state === "launched" ? "w-2/3" : "w-[100%] px-20"} h-full flex-col bg-white`}>
+                    <div className={`flex ${item.state === "launched" && role !== "campaigner" ? "w-2/3" : "w-[100%] px-20"} h-full flex-col bg-white`}>
                         <div className="flex items-center justify-center h-10  w-[98%]">
-                            <h1 className='font-bold text-center text-lg my-2 uppercase text-[#650cae]'>{item.name}</h1>
+                            <h1 className='font-bold text-center text-lg text-blue-400 my-2 uppercase text-[#650cae]'>{item.name}</h1>
                         </div>
                         <div className="flex px-4">
                             <p>
@@ -134,7 +178,6 @@ const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, role, erro
                                 </svg>
 
                                 start Date {item.start}
-
                             </div>
                         </div>
                         <div className="flex w-full h-10 px-10 bg-slate-100 mb-2 gap-x-2">
@@ -158,7 +201,7 @@ const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, role, erro
 
                             </div>
                         </div>
-                        <div className="flex p-10">
+                        <div className="flex py-10">
                             <Table
                                 noAction={false}
                                 action={approve}
@@ -169,21 +212,22 @@ const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, role, erro
                                     { Header: 'description', accessor: 'description' },
                                     { Header: 'state', accessor: 'approved' },
                                     { Header: 'Platforms', accessor: 'links' },
-                                    // { Header: 'Campaign  start Date', accessor: 'start' },
-                                    // { Header: 'Campaign  end Date', accessor: 'end' },
 
                                 ]}
                                 title=""
                                 data={item.submissions}
-
                             />
                         </div>
                         {item.state === "scheduled" && <div className={`flex w-full h-10 items-center justify-end`}>
-                            <div onClick={() => LaunchCampaign()} className="flex items-center justify-center px-2 py-1 border  rounded-md bg-blue-400 hover:bg-blue-100  hover:text-slaye-500  cursor-pointer shadow-2xl">Launch</div>
+                            <div onClick={() => LaunchCampaign(item.state === "scheduled" ? "launched" : "completed")}
+                                className={`flex items-center justify-center px-2 py-1 border  rounded-md ${item.state === "scheduled" ? "bg-blue-400 hover:bg-blue-100" : "bg-[#22c55e] hover:bg-blue-100"}   hover:text-slate-500  cursor-pointer shadow-2xl`}>{item.state === "scheduled" ? "Launch" : "Complete"}</div>
+                        </div>}
+                        {item.state === "launched" && <div className={`flex w-full h-10 items-center justify-end`}>
+                            <div onClick={() => LaunchCampaign("completed")} className="flex items-center justify-center px-2 py-1 border  rounded-md bg-[#22c55e] hover:bg-blue-100  hover:text-slate-500  cursor-pointer shadow-2xl">Completed</div>
                         </div>}
 
                     </div>
-                    {item.state === "launched" && <div className="flex w-1/3 px-2 py-4 h-full bg-slate-50 flex-col gap-y-2">
+                    {item.state === "launched" && role !== "campaigner" && <div className="flex w-1/3 px-2 py-4 h-full bg-slate-50 flex-col gap-y-2">
 
                         <div className="flex items-center font-bold text-slate-500 gap-x-2">
                             Posted To
@@ -191,7 +235,7 @@ const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, role, erro
                                 <SocialButton
                                     key={data.icon}
                                     media="X"
-                                    AddsocialMedia={() => AddsocialMedia(data)}
+
                                     color={data.color}
                                     icon={data.icon}
                                 />
@@ -203,13 +247,12 @@ const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, role, erro
                         </div>
                         {
                             SocialMediaArray?.map((listitem: any, id: any) => (
-
-                                <Input key={id} label={listitem?.media} placeholder={`${listitem.media} link`} required name="link" value={item.link} onChange={handleChange} />
+                                <Input key={id} label={listitem?.media} placeholder={`${listitem.media} link`} required name={listitem?.media} value={submissionitem?.links[listitem?.media]} onChange={(e: any) => updateItem(e, listitem.media)} />
                             ))
                         }
                         <div className='flex justify-between  px-5 mt-5'>
                             <button className='outline  rounded-md  outline-1 outline-[#101f20] bg-[#101f20] text-white py-2 px-4 hover:bg-transparent hover:text-black'
-                                onClick={() => { setList([]); setItem(initialState) }}
+                                onClick={() => { }}
                             > Cancel</button>
                             <button className='outline rounded-md bg-green-500 outline-1 outline-[#101f20] hover:bg-[#101f20] hover:text-white py-2 px-4 text-black'
                                 onClick={() => SubmitToCampaign()}
@@ -217,6 +260,7 @@ const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, role, erro
                         </div>
                     </div>
                     }
+
                 </div>
 
             </div>
