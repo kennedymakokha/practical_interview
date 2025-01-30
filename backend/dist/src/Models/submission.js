@@ -21,7 +21,7 @@ const submissionSchema = new mongoose_1.Schema({
         type: String,
     },
     approved: {
-        type: Boolean,
+        type: String,
         default: null
     },
     campaignID: { type: mongoose_1.Schema.Types.ObjectId, ref: 'Campaign' },

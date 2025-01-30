@@ -57,7 +57,7 @@ export default function Home() {
     { Header: 'lINK', accessor: 'link' },
     { Header: 'Campaign  start Date', accessor: 'start' },
     { Header: 'Campaign  end Date', accessor: 'end' },
-   
+
   ];
 
   const handleChange = (e: any, name: any) => {
@@ -102,7 +102,7 @@ export default function Home() {
   if (user && user?.role === "campaigner") {
     data = data.filter((c: any) => c.createdBy === user?._id)
   }
-  console.log(data)
+
   return (
     <div className="  font-[family-name:var(--font-geist-sans)]">
 
@@ -169,6 +169,7 @@ export default function Home() {
         fetchData={fetchData}
         cancel={closeDetailModal}
         item={item}
+        role={user && user?.role}
         body={<div></div>}
         title={item.name} />}
     </div>

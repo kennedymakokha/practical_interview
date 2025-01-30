@@ -14,7 +14,7 @@ export const submissionSchemaValidate = Joi.object({
 //creating an interface 
 interface ISubmissiion {
     links: any,
-    approved: boolean,
+    approved: string,
     description: string,
     deletedAt: string
     createdBy: Types.ObjectId;
@@ -30,7 +30,7 @@ const submissionSchema = new Schema<ISubmissiion>({
         type: String,
     },
     approved: {
-        type: Boolean,
+        type: String,
         default: null
     },
     campaignID: { type: Schema.Types.ObjectId, ref: 'Campaign' },

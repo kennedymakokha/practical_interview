@@ -6,6 +6,7 @@ import SocialButton from "../sociamediaItem"
 import { SocialMediaArray } from "../../../data"
 import instance from "@/utils/instance"
 import toast from "react-hot-toast"
+import Table from "../table"
 
 
 interface CreateModalProps {
@@ -16,13 +17,14 @@ interface CreateModalProps {
     item?: any
     title?: String
     body: any
+    role?: any
     fetchData: any
 }
 
-const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, error, submit, item, title, body }) => {
+const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, role, error, submit, item, title, body }) => {
     const initialState = {
         campaignID: item._id,
-        
+
         description: "",
         links: [{
             media: "Youtube", link: "ghggh"
@@ -70,6 +72,26 @@ const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, error, sub
             }
         }
     }
+
+
+    const date1: any = new Date(item.start);
+    const date2: any = new Date(item.end);
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    const approve = async (word: any, id: any) => {
+        try {
+            let response = await instance.put(`submissions/${id}`, { approved: word })
+            await fetchData()
+
+        } catch (error: any) {
+            if (error?.response?.data?.message) {
+                toast.error(error?.response?.data?.message)
+            }
+            else {
+                toast.error("Unknown Error Occured please ty again later")
+            }
+        }
+    }
     return (
         <div className={`w-screen h-screen bg-black bg-opacity-60 flex-col fixed top-0 right-0 flex justify-center items-center`}>
             <div className='bg-white min-w-[800px] w-[50vw]  h-[90vh] px-1 rounded-md shadow-md'>
@@ -101,7 +123,7 @@ const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, error, sub
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
-                                Duration 4Weeks
+                                Duration {diffDays} Days
 
                             </div>
                         </div>
@@ -111,7 +133,7 @@ const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, error, sub
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 2.994v2.25m10.5-2.25v2.25m-14.252 13.5V7.491a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v11.251m-18 0a2.25 2.25 0 0 0 2.25 2.25h13.5a2.25 2.25 0 0 0 2.25-2.25m-18 0v-7.5a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v7.5m-6.75-6h2.25m-9 2.25h4.5m.002-2.25h.005v.006H12v-.006Zm-.001 4.5h.006v.006h-.006v-.005Zm-2.25.001h.005v.006H9.75v-.006Zm-2.25 0h.005v.005h-.006v-.005Zm6.75-2.247h.005v.005h-.005v-.005Zm0 2.247h.006v.006h-.006v-.006Zm2.25-2.248h.006V15H16.5v-.005Z" />
                                 </svg>
 
-                                start Date 20th April 2025
+                                start Date {item.start}
 
                             </div>
                         </div>
@@ -121,7 +143,7 @@ const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, error, sub
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 2.994v2.25m10.5-2.25v2.25m-14.252 13.5V7.491a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v11.251m-18 0a2.25 2.25 0 0 0 2.25 2.25h13.5a2.25 2.25 0 0 0 2.25-2.25m-18 0v-7.5a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v7.5m-6.75-6h2.25m-9 2.25h4.5m.002-2.25h.005v.006H12v-.006Zm-.001 4.5h.006v.006h-.006v-.005Zm-2.25.001h.005v.006H9.75v-.006Zm-2.25 0h.005v.005h-.006v-.005Zm6.75-2.247h.005v.005h-.005v-.005Zm0 2.247h.006v.006h-.006v-.006Zm2.25-2.248h.006V15H16.5v-.005Z" />
                                 </svg>
 
-                                End Date 20th April 2025
+                                End Date {item.end}
 
                             </div>
                         </div>
@@ -136,7 +158,26 @@ const DetailModal: React.FC<CreateModalProps> = ({ cancel, fetchData, error, sub
 
                             </div>
                         </div>
+                        <div className="flex p-10">
+                            <Table
+                                noAction={false}
+                                action={approve}
+                                state="Submissions"
+                                key_column="name"
+                                role={role}
+                                columns={[
+                                    { Header: 'description', accessor: 'description' },
+                                    { Header: 'state', accessor: 'approved' },
+                                    { Header: 'Platforms', accessor: 'links' },
+                                    // { Header: 'Campaign  start Date', accessor: 'start' },
+                                    // { Header: 'Campaign  end Date', accessor: 'end' },
 
+                                ]}
+                                title=""
+                                data={item.submissions}
+
+                            />
+                        </div>
                         {item.state === "scheduled" && <div className={`flex w-full h-10 items-center justify-end`}>
                             <div onClick={() => LaunchCampaign()} className="flex items-center justify-center px-2 py-1 border  rounded-md bg-blue-400 hover:bg-blue-100  hover:text-slaye-500  cursor-pointer shadow-2xl">Launch</div>
                         </div>}
