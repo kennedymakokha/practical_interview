@@ -149,7 +149,7 @@ const DetailModal: React.FC<CreateModalProps> = ({
     <div
       className={`fixed right-0 top-0 flex h-screen w-screen flex-col items-center justify-center bg-black bg-opacity-60`}
     >
-      <div className="h-[90vh] w-[50vw] min-w-[800px] rounded-md bg-white px-1 shadow-md">
+      <div className=" h-[90vh] w-[50vw] min-w-[800px] rounded-md bg-white px-1 shadow-md">
         <div className="flex w-full">
           <div className="flex w-[98%] items-center justify-center border-b"></div>
           <div className="flex w-[5%] items-center justify-center">

@@ -43,7 +43,7 @@ const Table: React.FC<TableProps> = ({
       <div className="flex h-10 w-full border-t border-slate-100 py-1">
         <div className="flex h-full w-1/3 rounded-md px-2">
           <div
-            className={`flex h-full w-1/2 items-center justify-center rounded-md uppercase ${state === 'completed' ? 'bg-green-500' : state === 'scheduled' ? 'bg-slate-500 text-slate-100' : state === 'launched' ? 'bg-[#81b1ff]' : ''} `}
+            className={`flex h-full  w-full md:w-1/2 items-center text-[10px] md:text-[14px] justify-center rounded-md uppercase ${state === 'completed' ? 'bg-green-500' : state === 'scheduled' ? 'bg-slate-500 text-slate-100' : state === 'launched' ? 'bg-[#81b1ff]' : ''} `}
           >
             {state}
           </div>

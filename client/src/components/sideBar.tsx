@@ -55,23 +55,26 @@ const Sidebar = ({ children }: any) => {
 
   return (
     <div className="relative h-64">
-      <div className={`absolute inset-0 ${isExpanded ? 'left-[10%]' : 'left-[4%]'} -z-1`}>
-        <div className="mb-2 flex h-14 bg-white"></div>
+      
+      <div className={`absolute inset-0 ${isExpanded ? 'md:left-[10%] ' : ' left-[0%] md:left-[4%]'} -z-1`}>
+        <div className="mb-2 flex md:h-14 bg-white"></div>
+        <div className="flex  w-full p-2 rounded-md md:hidden flex item-center justify-center ">
+        <div className={`overflow-hidden   transition-all duration-300  w-32'}`}>
+                  <p className="font-medium capitalize">{user?.name}</p>
+                  <p className="text-sm lowercase text-center text-gray-400">{user?.role}</p>
+                  <div className="flex border items-center justify-center rounded-md">
+                  <p className="text-sm lowercase text-center text-gray-500">Logout</p>
+                  </div>
+                 
+                </div>
+        </div>
         <main>
+          
           <div className="flex w-full flex-col gap-y-12 px-3">{children}</div>{' '}
         </main>
       </div>
-      <div className="absolute left-0 z-20 flex items-center justify-center text-white">
-        {/* <div className="bg-gray-800 p-8 
-                rounded-lg shadow-lg">
-                    <h1 className="text-3xl font-bold mb-4">
-                        Welcome to Our Website
-                    </h1>
-                    <p className="text-lg">
-                        Thanks for visiting! This
-                        is the overlay content.
-                    </p>
-                </div> */}
+      <div className="absolute left-0 z-20  hidden md:flex items-center justify-center text-white">
+      
         <div
           className={`h-screen bg-gray-800 text-white transition-all duration-300 ease-in-out ${isExpanded ? 'w-16 md:w-44' : 'w-16'} relative`}
         >
