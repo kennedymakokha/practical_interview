@@ -27,7 +27,7 @@ const Input: React.FC<InputProps> = ({
 }) => {
   const [show, setShow] = useState(false);
   return (
-    <div className="flex w-full items-center gap-x-2 rounded-md border border-purple-800 px-2 md:border-slate-200">
+    <div className="flex w-full items-center gap-x-2 rounded-md border border-blue-800 px-2 md:border-blue-300">
       <div className="flex font-bold capitalize text-slate-50 md:text-slate-500">
         {label} {required === true && <span className="px-2 font-bold text-red-500">* </span>}
       </div>
@@ -69,7 +69,7 @@ const Input: React.FC<InputProps> = ({
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="size-6 text-purple-600"
+              className="size-6 text-blue-600"
             >
               <path
                 strokeLinecap="round"
@@ -96,7 +96,7 @@ export const TextArea: React.FC<InputProps> = ({
   onChange,
 }) => {
   return (
-    <div className="flex w-full gap-x-2 rounded-md border border-purple-800 px-2 md:border-slate-200">
+    <div className="flex w-full gap-x-2 rounded-md border border-blue-800 px-2 md:border-slate-200">
       <div className="flex font-bold capitalize text-slate-50 md:text-slate-500">
         {label} {required === true && <span className="px-2 font-bold text-red-500">* </span>}
       </div>
