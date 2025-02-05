@@ -4,6 +4,7 @@ import express from "express";
 
 import { isAuth } from "../middlewares/authmiddleware";
 import { startUpController } from "../Controllers/startup.controller";
+import upload from "../../upload";
 
 
 
@@ -12,7 +13,7 @@ import { startUpController } from "../Controllers/startup.controller";
 export const router = express.Router()
 
 //add  route
-router.post('/',  startUpController.addstartUp)
+router.post('/', upload.single('image'), startUpController.addstartUp)
 
 //get s
 router.get('/', startUpController.getstartUps)

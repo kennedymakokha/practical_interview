@@ -7,7 +7,6 @@ import { User } from '../Models/user'
 import { StartUp, startUpSchemaValidate } from '../Models/startup'
 
 
-
 class startUpcontroller {
 
     addstartUp = async (req: any, res: Response) => {
@@ -15,8 +14,15 @@ class startUpcontroller {
         try {
 
             //validating the request
+            if (!req.file) {
+                 res.status(400).send('No file uploaded');
+              }
+          
+              // Construct the image URL
+              const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+          
             req.body.slug = req.body.title.replace(/\s+/g, '-').toLowerCase()
-           
+            req.body.image = imageUrl
             const { error, value } = startUpSchemaValidate.validate(req.body)
             if (error) {
 
@@ -27,6 +33,7 @@ class startUpcontroller {
                 res.status(200).json({ message: 'Success', newstartUp })
             }
         } catch (error) {
+            console.log(error)
             res.status(400).json({ message: error })
 
         }

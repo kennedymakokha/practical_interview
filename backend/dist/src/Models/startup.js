@@ -16,6 +16,7 @@ exports.startUpSchemaValidate = joi_1.default.object({
     slug: joi_1.default.string().required(),
     pitch: joi_1.default.string().required(),
     category: joi_1.default.string().required(),
+    image: joi_1.default.string().required(),
 });
 const startupSchema = new mongoose_1.Schema({
     title: {
@@ -25,6 +26,9 @@ const startupSchema = new mongoose_1.Schema({
         type: Number,
     },
     slug: {
+        type: String,
+    },
+    image: {
         type: String,
     },
     description: {

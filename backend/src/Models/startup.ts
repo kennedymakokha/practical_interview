@@ -13,6 +13,7 @@ export const startUpSchemaValidate = Joi.object({
     slug: Joi.string().required(),
     pitch: Joi.string().required(),
     category: Joi.string().required(),
+    image: Joi.string().required(),
 
 })
 
@@ -21,6 +22,7 @@ interface Istartup {
     title: string,
     slug: string,
     author: Types.ObjectId;
+    image:string,
     views: number,
     deletedAt: string,
     description: string
@@ -36,8 +38,10 @@ const startupSchema = new Schema<Istartup>({
         type: Number,
     },
     slug: {
-        type: String,
-      
+        type: String,   
+    },
+    image: {
+        type: String,  
     },
     description: {
         type: String,  

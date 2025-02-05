@@ -8,10 +8,11 @@ exports.router = void 0;
 const express_1 = __importDefault(require("express"));
 const authmiddleware_1 = require("../middlewares/authmiddleware");
 const startup_controller_1 = require("../Controllers/startup.controller");
+const upload_1 = __importDefault(require("../../upload"));
 //initiating the router
 exports.router = express_1.default.Router();
 //add  route
-exports.router.post('/', startup_controller_1.startUpController.addstartUp);
+exports.router.post('/', upload_1.default.single('image'), startup_controller_1.startUpController.addstartUp);
 //get s
 exports.router.get('/', startup_controller_1.startUpController.getstartUps);
 //get single 
