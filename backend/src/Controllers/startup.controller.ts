@@ -37,7 +37,7 @@ class startUpcontroller {
 
     getstartUps = async (req: Request, res: Response) => {
         try {
-            const startUp = await StartUp.find()
+            const startUp = await StartUp.find().populate('author')
 
             res.status(200).json({ message: 'Success', startUp })
         } catch (error) {

@@ -33,7 +33,7 @@ class startUpcontroller {
         });
         this.getstartUps = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const startUp = yield startup_1.StartUp.find();
+                const startUp = yield startup_1.StartUp.find().populate('author');
                 res.status(200).json({ message: 'Success', startUp });
             }
             catch (error) {

@@ -33,7 +33,7 @@ const startupSchema = new mongoose_1.Schema({
     category: {
         type: String,
     },
-    author: { type: mongoose_1.Schema.Types.ObjectId, ref: 'startup' },
+    author: { type: mongoose_1.Schema.Types.ObjectId, ref: 'author' },
 }, { timestamps: true });
 //creating a model
 exports.StartUp = (0, mongoose_1.model)('startup', startupSchema);

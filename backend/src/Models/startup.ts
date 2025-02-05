@@ -46,7 +46,7 @@ const startupSchema = new Schema<Istartup>({
         type: String,
       
     },
-    author: { type: Schema.Types.ObjectId, ref: 'startup' },
+    author: { type: Schema.Types.ObjectId, ref: 'author' },
 
 }, { timestamps: true })
 
