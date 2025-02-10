@@ -12,7 +12,8 @@ exports.authorSchemaValidate = joi_1.default.object({
     name: joi_1.default.string().required(),
     username: joi_1.default.string().required(),
     email: joi_1.default.string().required(),
-    // email: Joi.string().required(),
+    bio: joi_1.default.any(),
+    id: joi_1.default.string(),
 });
 const authorSchema = new mongoose_1.Schema({
     name: {
@@ -27,6 +28,12 @@ const authorSchema = new mongoose_1.Schema({
     image: {
         type: String,
     },
+    bio: {
+        type: String
+    },
+    id: {
+        type: String
+    }
 }, { timestamps: true });
 //creating a model
 exports.Author = (0, mongoose_1.model)('author', authorSchema);

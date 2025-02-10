@@ -22,11 +22,12 @@ interface Istartup {
     title: string,
     slug: string,
     author: Types.ObjectId;
-    image:string,
+    image: string,
     views: number,
     deletedAt: string,
     description: string
-    category:StringSchemaDefinition
+    pitch:string
+    category: string
 
 }
 
@@ -36,19 +37,22 @@ const startupSchema = new Schema<Istartup>({
     },
     views: {
         type: Number,
+        default: 0,
     },
     slug: {
-        type: String,   
+        type: String,
     },
     image: {
-        type: String,  
+        type: String,
     },
     description: {
-        type: String,  
+        type: String,
     },
     category: {
         type: String,
-      
+    },
+    pitch: {
+        type: String,
     },
     author: { type: Schema.Types.ObjectId, ref: 'author' },
 

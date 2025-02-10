@@ -17,7 +17,10 @@ router.post('/',  authorController.addauthor)
 router.get('/', authorController.getauthors)
 
 //get single 
-router.get('/:id', [isAuth], authorController.getauthor)
+router.get('/:id', authorController.getauthor)
+
+//login autor  single 
+router.post('/:id', authorController.loginauthor)
 
 //update a 
 router.put('/:id', [isAuth], authorController.updateauthor)

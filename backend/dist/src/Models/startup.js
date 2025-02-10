@@ -24,6 +24,7 @@ const startupSchema = new mongoose_1.Schema({
     },
     views: {
         type: Number,
+        default: 0,
     },
     slug: {
         type: String,
@@ -35,6 +36,9 @@ const startupSchema = new mongoose_1.Schema({
         type: String,
     },
     category: {
+        type: String,
+    },
+    pitch: {
         type: String,
     },
     author: { type: mongoose_1.Schema.Types.ObjectId, ref: 'author' },

@@ -4,7 +4,7 @@ import path from 'path';
 
 dotenv.config();
 const app: Express = express();
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const port = process.env.PORT;
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server');

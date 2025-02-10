@@ -7,13 +7,14 @@ import { router as submissionRoutes } from './src/Routes/submissions.routes';
 import { router as authorRoutes } from './src/Routes/author.routes';
 import { router as startUpRoutes } from './src/Routes/startup.routes';
 import cors from 'cors'
+import path from 'path';
 dotenv.config();
 const app: Express = express();
 const port = process.env.PORT;
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/v1/user', router)
 app.use('/api/v1/campaign', campaignRoutes)
 app.use('/api/v1/submissions', submissionRoutes)

@@ -16,21 +16,23 @@ class startUpcontroller {
     constructor() {
         this.addstartUp = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
+                console.log(req.body);
                 //validating the request
-                if (!req.file) {
-                    res.status(400).send('No file uploaded');
-                }
+                // if (!req.file) {
+                //     res.status(400).send('No file uploaded');
+                // }
                 // Construct the image URL
-                const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+                // const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
                 req.body.slug = req.body.title.replace(/\s+/g, '-').toLowerCase();
-                req.body.image = imageUrl;
+                req.body.image = "http://localhost:8000/uploads/1738926242837.jpg";
+                req.body.author = "67a4c88574993ee5993de31b";
                 const { error, value } = startup_1.startUpSchemaValidate.validate(req.body);
                 if (error) {
                     res.status(400).json({ message: error.message });
                 }
                 else {
                     const newstartUp = yield startup_1.StartUp.create(Object.assign({}, value));
-                    res.status(200).json({ message: 'Success', newstartUp });
+                    res.status(200).json(newstartUp);
                 }
             }
             catch (error) {
@@ -40,7 +42,27 @@ class startUpcontroller {
         });
         this.getstartUps = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const startUp = yield startup_1.StartUp.find().populate('author');
+                const { search, id } = req.query;
+                let options = {};
+                if (search === 'null' || search === undefined) {
+                    options = {};
+                }
+                else {
+                    var searchKey = new RegExp(`${search}`, 'i');
+                    options = { $or: [{ title: searchKey }, { category: searchKey }, { description: searchKey }], deletedAt: null };
+                }
+                const startUp = yield startup_1.StartUp.find(options).populate('author');
+                res.status(200).json({ message: 'Success', startUp });
+            }
+            catch (error) {
+                res.status(400).json(error);
+            }
+        });
+        this.getUserstartUps = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = req.params;
+                console.log(id);
+                const startUp = yield startup_1.StartUp.find({ author: id, deletedAt: null }).populate('author');
                 res.status(200).json({ message: 'Success', startUp });
             }
             catch (error) {
@@ -48,9 +70,17 @@ class startUpcontroller {
             }
         });
         this.getstartUp = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { views } = req.query;
             try {
                 const id = req.params.id;
-                const startUp = yield startup_1.StartUp.findById(id);
+                let startUp = undefined;
+                yield startup_1.StartUp.findById(id).populate('author');
+                if (views) {
+                    startUp = yield startup_1.StartUp.findById(id).select('views');
+                }
+                else {
+                    startUp = yield startup_1.StartUp.findById(id).populate('author');
+                }
                 res.status(200).json({ message: 'Success', startUp });
             }
             catch (error) {

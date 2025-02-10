@@ -15,7 +15,9 @@ exports.router.post('/', author_controller_1.authorController.addauthor);
 //get s
 exports.router.get('/', author_controller_1.authorController.getauthors);
 //get single 
-exports.router.get('/:id', [authmiddleware_1.isAuth], author_controller_1.authorController.getauthor);
+exports.router.get('/:id', author_controller_1.authorController.getauthor);
+//login autor  single 
+exports.router.post('/:id', author_controller_1.authorController.loginauthor);
 //update a 
 exports.router.put('/:id', [authmiddleware_1.isAuth], author_controller_1.authorController.updateauthor);
 //delete a 

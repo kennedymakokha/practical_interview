@@ -19,10 +19,12 @@ router.post('/', upload.single('image'), startUpController.addstartUp)
 router.get('/', startUpController.getstartUps)
 
 //get single 
-router.get('/:id', [isAuth], startUpController.getstartUp)
+router.get('/:id', startUpController.getstartUp)
+//get single author startups 
+router.get('/author/:id', startUpController.getUserstartUps)
 
 //update a 
-router.put('/:id', [isAuth], startUpController.updatestartUp)
+router.put('/:id', startUpController.updatestartUp)
 
 //delete a 
-router.delete('/:id', [isAuth], startUpController.deletestartUp)
+router.delete('/:id', startUpController.deletestartUp)

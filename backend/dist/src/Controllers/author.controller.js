@@ -9,9 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authorController = void 0;
 const author_1 = require("../Models/author");
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 // import { Author, authorSchemaValidate } from '../Models/author'
 class authorcontroller {
     constructor() {
@@ -37,12 +41,45 @@ class authorcontroller {
         });
         this.getauthor = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
+                let author = null;
                 const id = req.params.id;
-                const author = yield author_1.Author.findById(id);
+                if (req.query.auth) {
+                    author = yield author_1.Author.findOne({ $or: [{ id: id }] });
+                }
+                author = yield author_1.Author.findById(id);
                 res.status(200).json({ message: 'Success', author });
             }
             catch (error) {
                 res.status(400).json(error);
+            }
+        });
+        this.loginauthor = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            console.log("Token Generation");
+            try {
+                const { id } = req.query;
+                const author = yield author_1.Author.findOne({ $or: [{ id: id }] });
+                // if (!user) {
+                //      res
+                //         .status(400)
+                //         .json({ success: false, message: "User Does Not Exist !" });
+                // }
+                // const isEqual = await bcrypt.compare(req.body.password, user.password);
+                // if (!isEqual) {
+                //      res.status(400)
+                //         .json({ success: false, message: "Password is Incorrect !" });
+                // }
+                const iat = Math.floor(Date.now() / 1000);
+                // Expires After 2 Hours
+                const exp = Math.floor(Date.now() / 1000) + 60 * 60 * 2;
+                const token = jsonwebtoken_1.default.sign({
+                    iat: iat,
+                    exp: exp,
+                    uid: author === null || author === void 0 ? void 0 : author._id,
+                }, "secret");
+                res.status(200).json({ message: 'Success', author, token, exp });
+            }
+            catch (error) {
+                res.status(400).json({ message: error });
             }
         });
         //updat
